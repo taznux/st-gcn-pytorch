@@ -97,7 +97,7 @@ def train():
 	for epoch in range(args.start_epoch, args.num_epochs):
 		train_loss = 0
 		train_acc  = 0
-		scheduler.step()
+
 		model.train()
 		for i, x in enumerate(train_loader):
 			logit = model(x[0].float())
@@ -111,7 +111,8 @@ def train():
 
 			train_loss += loss.item()
 			train_acc  += accuracy(logit, target.view(1))
-
+		scheduler.step()
+				
 		print('[epoch',epoch+1,'] Train loss:',train_loss/i, 'Train Acc:',train_acc/i)
 
 		if (epoch+1) % args.val_step == 0:
