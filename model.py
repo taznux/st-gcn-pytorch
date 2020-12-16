@@ -41,7 +41,7 @@ class GGCN(nn.Module):
             torch.stack((lw_ra[:, :, 2], lw_ra[:, :, 1], lw_ra[:, :, 0]), 2),
             lw_ra[:, :, 3:], head_la[:, :, 3:], head_ra[:, :, 3:]], 2).to(x)
         x = torch.cat((x, node_features.permute(
-            0, 2, 1).unsqueeze(1).repeat(1, 32, 1, 1)), 3)
+            0, 2, 1).unsqueeze(1).repeat(x.shape[0], 32, 1, 1)), 3)
 
         concat_seq = torch.cat(
             [x[:, :-2], x[:, 1:-1], x[:, 2:]], 2)  # 1, 30, 45, 3
